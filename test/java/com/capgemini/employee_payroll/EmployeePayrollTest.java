@@ -81,12 +81,12 @@ public class EmployeePayrollTest {
 		Employee_payroll_Data[] arrayOfEmps = getEmployeeList();
 		employeePayrollService = new Employee_payroll_service(Arrays.asList(arrayOfEmps));
 		employeePayrollService.updateEmployeeSalary("Anil", 3000000.00,IOService.REST_IO);
-		Employee_payroll_Data employeePayrollData = employeePayrollService.get("Sathya");
+		Employee_payroll_Data employeePayrollData = employeePayrollService.get("Anil");
 		String empJson = new Gson().toJson(employeePayrollData);
 		RequestSpecification request = RestAssured.given();
 		request.header("Content-Type", "application/json");
 		request.body(empJson);
-		Response response = request.put("/employees/" + employeePayrollData.id);
+		Response response = request.put("/payroll/" + employeePayrollData.id);
 		int statusCode = response.getStatusCode();
 		Assert.assertEquals(200, statusCode);
 	}
