@@ -98,6 +98,17 @@ public class Employee_payroll_service {
 			employeePayrollData.salary = salary;
 	}
 
+	public void updateEmployeeSalary(String name, double salary, IOService ioService) {
+		if (ioService.equals(IOService.REST_IO)) {
+			int result = employeePayrollDBService.updateEmployeeData(name, salary);
+			if (result == 0)
+				return;
+		}
+		Employee_payroll_Data employeePayrollData = this.getEmployee_payroll_Data(name);
+		if (employeePayrollData != null)
+			employeePayrollData.salary = salary;
+	}
+
 	public void addEmployeeToPayRoll(String name, double salary, LocalDate start, String gender)
 			throws EmployeePayrollException {
 		employeePayrollList.add(employeePayrollNewDBService.addEmployeeToPayrollUC(name, salary, start, gender));
