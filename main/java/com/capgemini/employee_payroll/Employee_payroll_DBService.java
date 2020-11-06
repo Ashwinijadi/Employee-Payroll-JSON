@@ -61,7 +61,7 @@ public class Employee_payroll_DBService {
 		}
 	}
 
-	public List<Employee_payroll_Data> getEmployeePayrollData(String name) {
+	public List<Employee_payroll_Data>getEmployeePayrollData(String name) {
 		List<Employee_payroll_Data> employeePayrollList = null;
 		if (this.employeePayrollDataStatement == null)
 			this.preparedStatementForEmployeeData();

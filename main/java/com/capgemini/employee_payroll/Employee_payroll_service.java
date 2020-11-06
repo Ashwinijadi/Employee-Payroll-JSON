@@ -93,7 +93,7 @@ public class Employee_payroll_service {
 		if (result == 0) {
 			throw new EmployeePayrollException(Exception.DATA_NULL, "No Data to update ");
 		}
-		Employee_payroll_Data employeePayrollData = this.getEmployee_payroll_Data(name);
+		Employee_payroll_Data employeePayrollData = this.getEmployeePayrollData(name);
 		if (employeePayrollData != null)
 			employeePayrollData.salary = salary;
 	}
@@ -104,7 +104,7 @@ public class Employee_payroll_service {
 			if (result == 0)
 				return;
 		}
-		Employee_payroll_Data employeePayrollData = this.getEmployee_payroll_Data(name);
+		Employee_payroll_Data employeePayrollData = this.getEmployeePayrollData(name);
 		if (employeePayrollData != null)
 			employeePayrollData.salary = salary;
 	}
@@ -157,14 +157,14 @@ public class Employee_payroll_service {
 		log.info("" + this.employeePayrollList);
 	}
 
-	private Employee_payroll_Data getEmployee_payroll_Data(String name) {
+	public Employee_payroll_Data getEmployeePayrollData(String name) {
 		return this.employeePayrollList.stream().filter(emp_Data -> emp_Data.name.equals(name)).findFirst()
 				.orElse(null);
 	}
 
 	public boolean checkEmployeePayrollInSyncWithDB(String name) {
 		List<Employee_payroll_Data> employeePayrollList = employeePayrollDBService.getEmployeePayrollData(name);
-		return employeePayrollList.get(0).equals(getEmployee_payroll_Data(name));
+		return employeePayrollList.get(0).equals(getEmployeePayrollData(name));
 	}
 
 	public Map<String, Double> readPayrollDataForAvgSalary(IOService ioService) {
@@ -212,4 +212,12 @@ public class Employee_payroll_service {
 			employeePayrollList.add(employeePayrollData);
 
 	}
+
+	public void deleteEmployeePayroll(String name, IOService ioService) {
+		if (ioService.equals(IOService.DB_IO)) {
+			Employee_payroll_Data employeePayrollData = this.getEmployeePayrollData(name);
+			employeePayrollList.remove(employeePayrollData);
+		}
+	}
+
 }
