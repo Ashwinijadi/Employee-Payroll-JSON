@@ -81,7 +81,7 @@ public class EmployeePayrollTest {
 		Employee_payroll_Data[] arrayOfEmps = getEmployeeList();
 		employeePayrollService = new Employee_payroll_service(Arrays.asList(arrayOfEmps));
 		employeePayrollService.updateEmployeeSalary("Anil", 3000000.00,IOService.REST_IO);
-		Employee_payroll_Data employeePayrollData = employeePayrollService.get("Anil");
+		Employee_payroll_Data employeePayrollData = employeePayrollService.getEmployee_payroll_Data("Anil");
 		String empJson = new Gson().toJson(employeePayrollData);
 		RequestSpecification request = RestAssured.given();
 		request.header("Content-Type", "application/json");
